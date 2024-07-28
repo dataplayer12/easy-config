@@ -12,6 +12,8 @@ xmodmap ~/.xmodmap
 
 if [[ $(uname -m) == *"x86"* ]]; then
   echo 'alias gpu="watch -n 1 nvidia-smi"' >> ~/.bashrc
+  sudo wget https://github.com/bcicen/ctop/releases/download/v0.7.7/ctop-0.7.7-linux-amd64 -O /usr/local/bin/ctop
+  sudo chmod +x /usr/local/bin/ctop
 elif [[ $(uname -m) == *"aarch64"* ]]; then
   echo 'alias gpu="jtop"' >> ~/.bashrc
 # If the system architecture is neither x86 nor ARM (aarch64), print an error message
@@ -23,11 +25,6 @@ fi
 source ~/.bashrc
 
 sudo apt-get install ca-certificates curl gnupg lsb-release -y
-curl -fsSL https://azlux.fr/repo.gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/azlux-archive-keyring.gpg
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/azlux-archive-keyring.gpg] http://packages.azlux.fr/debian \
-  $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/azlux.list >/dev/null
 sudo apt-get update
-sudo apt-get install docker-ctop -y
 
 echo "All done! Happy programming :)"
